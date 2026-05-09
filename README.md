@@ -8,4 +8,4 @@
 
 ### Preview
 
-[![Demo]](ss/demo.mp4)
+![Demo](ss/demo.mp4)
