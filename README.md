@@ -8,4 +8,4 @@
 
 ### Preview
 
-<video controls src="ss/demo.mp4" width="100%" autoplay loop muted playsinline></video>
+[![Demo]](ss/demo.mp4)
