@@ -24,9 +24,11 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|confirmed',
         ]);
 
+        // Hash password sebelum menyimpan
+        $validatedData['password'] = bcrypt($validatedData['password']);
         User::create($validatedData);
 
         return redirect('/admin/users')->with('success', 'User created successfully!');
@@ -43,10 +45,18 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:8',
+            'password' => 'nullable|min:8|confirmed',
         ]);
 
         $user = User::findOrFail($id);
+        
+        // Hash password hanya jika diisi
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = bcrypt($validatedData['password']);
+        } else {
+            unset($validatedData['password']);
+        }
+        
         $user->update($validatedData);
 
         return redirect('/admin/users')->with('success', 'User updated successfully!');

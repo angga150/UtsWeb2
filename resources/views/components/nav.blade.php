@@ -15,11 +15,33 @@
         <li class="nav-item">
           <a class="nav-link text-light" href="/contact">Contact</a>
         </li>
+        @auth
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/admin">Admin</a>
+          </li>
+        @endauth
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        @auth
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ auth()->user()->name }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                  @csrf
+                  <button type="submit" class="dropdown-item">Logout</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        @else
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/login">Login</a>
+          </li>
+        @endauth
+      </ul>
     </div>
   </div>
 </nav>
