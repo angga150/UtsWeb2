@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Products;
+use App\Models\Category;
 
 class ProductsController extends Controller
 {
     public function index() 
     {
-        $products = Products::all();
+        $products = Products::with('category')->get();
         return view('admin.products.index', compact('products'));
     }
     
     public function create() 
     {
-        return view('admin.products.create');
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories'));
     }
 
     public function store(Request $request) 
@@ -25,6 +27,7 @@ class ProductsController extends Controller
             'nama_barang' => 'required|max:100',
             'satuan' => 'required|max:30',
             'harga' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         Products::create($request->all());
@@ -34,7 +37,8 @@ class ProductsController extends Controller
     public function edit($id) 
     {
         $product = Products::findOrFail($id);
-        return view('admin.products.edit', compact('product'));
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, $id) 
@@ -44,6 +48,7 @@ class ProductsController extends Controller
             'nama_barang' => 'required|max:100',
             'satuan' => 'required|max:30',
             'harga' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $product = Products::findOrFail($id);

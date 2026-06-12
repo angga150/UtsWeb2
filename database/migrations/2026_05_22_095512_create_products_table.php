@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama_barang', 100);
             $table->string('satuan', 30);
             $table->decimal('harga', 12, 2);
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

@@ -10,6 +10,7 @@
                     <th>Nama Barang</th>
                     <th>Satuan</th>
                     <th>Harga</th>
+                    <th>Category</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -21,6 +22,7 @@
                         <td>{{ $product->nama_barang }}</td>
                         <td>{{ $product->satuan }}</td>
                         <td>{{ $product->harga }}</td>
+                        <td>{{ $product->category->name ?? 'No Category' }}</td>
                         <td>
                             <a href="/admin/products/{{ $product->id }}/edit" class="btn btn-sm btn-warning">Edit</a>
                             <form action="/admin/products/{{ $product->id }}" method="POST" class="d-inline">

@@ -58,6 +58,22 @@
                         @enderror
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label for="category_id" class="form-label">Category</label>
+                        <select class="form-control @error('category_id') is-invalid @enderror" 
+                                id="category_id" name="category_id">
+                            <option value="">Select Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">Create Product</button>
                         <a href="/admin/products" class="btn btn-secondary">Cancel</a>

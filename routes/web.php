@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CategoryController;
 
 // Public routes
 Route::get('/', function () {
@@ -46,6 +47,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/customers/{id}/edit', [CustomerController::class, 'edit'])->name('admin.customers.edit');
     Route::put('/admin/customers/{id}', [CustomerController::class, 'update'])->name('admin.customers.update');
     Route::delete('/admin/customers/{id}', [CustomerController::class, 'destroy'])->name('admin.customers.destroy');
+
+    // Category management routes
+    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+    Route::get('/admin/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+    Route::post('/admin/categories', [CategoryController::class, 'store'])->name('admin.categories.store');
+    Route::get('/admin/categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
+    Route::put('/admin/categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 });
 
 
